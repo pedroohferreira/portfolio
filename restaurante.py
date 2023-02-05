@@ -21,9 +21,9 @@ def AbreConta(listaContas):
 def AdicionarItens(listaContas):
   while True:
     try:
-      print("Mesas com contas abertas: ", end="")
+      print("Mesas com contas abertas ", end=" |")
       for i in listaContas:
-        print(f" {i['numeroMesa']} ")
+        print(f" {i['numeroMesa']} ",end="|")
 
       mesa = int(input("\nInforme o número da mesa: "))
 
@@ -54,9 +54,9 @@ def AdicionarItens(listaContas):
 def FecharConta(listaContas, historico):
   while True:
     try:
-      print("Mesas com contas abertas: ", end="")
+      print("Mesas com contas abertas ", end=" |")
       for i in listaContas:
-        print(f" {i['numeroMesa']} ")
+        print(f" {i['numeroMesa']} ",end="|")
       mesa = int(input("\nInforme o número da mesa ou '0' para sair: "))
       if mesa == 0:
         return None
