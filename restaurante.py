@@ -19,7 +19,7 @@ def AbreConta(listaContas):
       print("\nAo informar a mesa, digite apenas números.")
 
 def AdicionarItens(listaContas):
-  a = open("dados_restaurante.txt", 'a')
+  a = open("dados_restaurante.txt", 'a', encoding="utf-8")
   while True:
     try:
       print("Mesas com contas abertas ", end=" |")
@@ -41,7 +41,7 @@ def AdicionarItens(listaContas):
               valorUnitario = float(input("Informe o valor unitário: "))
 
               listaContas[posicao]['itens'].append({'item': item, 'quantidade': qnt, 'valor': valorUnitario}) # Adicionando itens na mesa
-              a.write(f"{item};{qnt};{valorUnitario};{mesa};{listaContas[posicao]['garçom']}")
+              a.write(f"1{item};{qnt};{valorUnitario};{mesa};{listaContas[posicao]['garçom']}")
               print("\nPedido confirmado!")
             else:
               break
@@ -114,12 +114,13 @@ def FechamentoDia(contasEncerradas):
   return print(f"\nO valor faturado hoje foi de R${faturamento: .2f}")
 
 def VerHistorico(historico):
-  for i in historico:
-    print(f"\n   Mesa: {i['numeroMesa']}     garçom: {i['garçom']}\n")
-    for x in i['itens']:
-      print(f"{x['item']} - {x['quantidade']} x {x['valor']} = {x['quantidade']*x['valor']: .2f}")
-    print("\n")
-
+  a = open("dados_restaurante.txt", 'r', encoding="utf-8")
+  linhas = a.readlines()
+  for linha in linhas:
+    i = linha.split(";")
+    print(f"\n\n   Mesa: {i[3]}     garçom: {i[4]}\n")
+    print(f"{i[0} - {i[1]} x {x[2]} = {int(x[1])*int(x[2]): .2f}")
+  a.close()
 
 listaContas = [{'numeroMesa': 1,
   'itens': [{'item': 'coca-cola 2L', 'quantidade': 12, 'valor': 10.0},
