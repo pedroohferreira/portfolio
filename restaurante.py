@@ -19,6 +19,7 @@ def AbreConta(listaContas):
       print("\nAo informar a mesa, digite apenas números.")
 
 def AdicionarItens(listaContas):
+  a = open("dados_restaurante.txt", 'a')
   while True:
     try:
       print("Mesas com contas abertas ", end=" |")
@@ -40,10 +41,11 @@ def AdicionarItens(listaContas):
               valorUnitario = float(input("Informe o valor unitário: "))
 
               listaContas[posicao]['itens'].append({'item': item, 'quantidade': qnt, 'valor': valorUnitario}) # Adicionando itens na mesa
+              a.write(f"{item};{qnt};{valorUnitario};{mesa};{listaContas[posicao]['garçom']}")
               print("\nPedido confirmado!")
             else:
               break
-
+          a.close()
           return listaContas
         posicao += 1
       if encontrei == False:
