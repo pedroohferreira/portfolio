@@ -19,7 +19,6 @@ def AbreConta(listaContas):
       print("\nAo informar a mesa, digite apenas números.")
 
 def AdicionarItens(listaContas):
-  a = open("dados_restaurante.txt", 'a')
   while True:
     try:
       print("Mesas com contas abertas ", end=" |")
@@ -41,11 +40,9 @@ def AdicionarItens(listaContas):
               valorUnitario = float(input("Informe o valor unitário: "))
 
               listaContas[posicao]['itens'].append({'item': item, 'quantidade': qnt, 'valor': valorUnitario}) # Adicionando itens na mesa
-              a.write(f"{item};{qnt};{valorUnitario};{mesa};{listaContas[posicao]['garçom']}")
               print("\nPedido confirmado!")
             else:
               break
-          a.close()
           return listaContas
         posicao += 1
       if encontrei == False:
@@ -54,6 +51,7 @@ def AdicionarItens(listaContas):
       print("\nAo informar a mesa, digite apenas números.")
 
 def FecharConta(listaContas, historico):
+  a = open("dados_restaurante.txt", 'a', encoding="utf-8")
   while True:
     try:
       print("Mesas com contas abertas ", end=" |")
@@ -76,11 +74,15 @@ def FecharConta(listaContas, historico):
 
           if total > 0:
             historico.append(listaContas[posicao])
+            for select in listaContas[posicao]['itens']:
+              a.write(f"\n{listaContas[posicao]['numeroMesa']};{select['item']};{select['quantidade']};{select['valor']};{listaContas[posicao]['garçom']}")
             garcom = listaContas[posicao]['garçom']
             del listaContas[posicao]
             print("\nConta fechada!")
+            a.close()
             return {'valorPedido': total, 'garçom': garcom}
           else:
+            a.close()
             del listaContas[posicao]
             print("\nConta fechada!")
             return None
