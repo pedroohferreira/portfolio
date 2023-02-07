@@ -1,0 +1,5 @@
+coca-cola;2;10.0;12;joao
+porção de batata;3;30.0;10;pedro
+coca-cola;3;12.0;10;pedro
+porção de carne de sol;2;65.0;12;joao
+stella 600ml;4;14.0;12;joao

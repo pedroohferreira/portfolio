@@ -41,7 +41,7 @@ def AdicionarItens(listaContas):
               valorUnitario = float(input("Informe o valor unitário: "))
 
               listaContas[posicao]['itens'].append({'item': item, 'quantidade': qnt, 'valor': valorUnitario}) # Adicionando itens na mesa
-              a.write(f"1{item};{qnt};{valorUnitario};{mesa};{listaContas[posicao]['garçom']}")
+              a.write(f"\n{item};{qnt};{valorUnitario};{mesa};{listaContas[posicao]['garçom']}")
               print("\nPedido confirmado!")
             else:
               break
@@ -115,17 +115,28 @@ def FechamentoDia(contasEncerradas):
 
 def VerHistorico(historico):
   a = open("dados_restaurante.txt", 'r', encoding="utf-8")
+  listaPedidos = []
   linhas = a.readlines()
   for linha in linhas:
     i = linha.split(";")
-    print(f"\n\n   Mesa: {i[3]}     garçom: {i[4]}\n")
-    print(f"{i[0} - {i[1]} x {x[2]} = {int(x[1])*int(x[2]): .2f}")
+    encontrei = False
+    posicao = 0
+    while encontrei == False and posicao<len(listaPedidos):
+      if listaPedidos[posicao]['numeroMesa'] == i[3]:
+        encontrei = True
+        listaPedidos[posicao]['itens'].append({'item': i[0], 'quantidade': i[1], 'valor': i[2]})
+      else:
+        posisao += 1
+    if encontrei == False:
+      listaPedidos.append({'numeroMesa': i[3], 'itens': [{'item': i[0], 'quantidade': i[1], 'valor': i[2]}], 'garçom': i[4]})
+  for pedido in listaPedidos:
+    print(f"\n\n  mesa: {pedido['numeroMesa']}    garçom: {pedido['garçom']}"\n)
+    for x in pedido['itens']:
+      print(f"{x['item']} - {x['quantidade']} - {x['valor']}")
   a.close()
+  return print("\nFim do histórico.")
 
-listaContas = [{'numeroMesa': 1,
-  'itens': [{'item': 'coca-cola 2L', 'quantidade': 12, 'valor': 10.0},
-   {'item': 'porção de batata', 'quantidade': 2, 'valor': 30.0}],
-  'garçom': 'pedro'}]
+listaContas = []
 contasEncerradas = []
 historico = []
 
