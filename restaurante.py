@@ -19,7 +19,6 @@ def AbreConta(listaContas):
       print("\nAo informar a mesa, digite apenas números.")
 
 def AdicionarItens(listaContas):
-  a = open("dados_restaurante.txt", 'a', encoding="utf-8")
   while True:
     try:
       print("Mesas com contas abertas ", end=" |")
@@ -41,11 +40,9 @@ def AdicionarItens(listaContas):
               valorUnitario = float(input("Informe o valor unitário: "))
 
               listaContas[posicao]['itens'].append({'item': item, 'quantidade': qnt, 'valor': valorUnitario}) # Adicionando itens na mesa
-              a.write(f"\n{item};{qnt};{valorUnitario};{mesa};{listaContas[posicao]['garçom']}")
               print("\nPedido confirmado!")
             else:
               break
-          a.close()
           return listaContas
         posicao += 1
       if encontrei == False:
@@ -54,6 +51,7 @@ def AdicionarItens(listaContas):
       print("\nAo informar a mesa, digite apenas números.")
 
 def FecharConta(listaContas, historico):
+  a = open("dados_restaurante.txt", 'a', encoding="utf-8")
   while True:
     try:
       print("Mesas com contas abertas ", end=" |")
@@ -76,11 +74,15 @@ def FecharConta(listaContas, historico):
 
           if total > 0:
             historico.append(listaContas[posicao])
+            for select in listaContas[posicao]['itens']:
+              a.write(f"\n{listaContas[posicao]['numeroMesa']};{select['item']};{select['quantidade']};{select['valor']};{listaContas[posicao]['garçom']}")
             garcom = listaContas[posicao]['garçom']
             del listaContas[posicao]
             print("\nConta fechada!")
+            a.close()
             return {'valorPedido': total, 'garçom': garcom}
           else:
+            a.close()
             del listaContas[posicao]
             print("\nConta fechada!")
             return None
@@ -114,27 +116,11 @@ def FechamentoDia(contasEncerradas):
   return print(f"\nO valor faturado hoje foi de R${faturamento: .2f}")
 
 def VerHistorico(historico):
-  a = open("dados_restaurante.txt", 'r', encoding="utf-8")
-  listaPedidos = []
-  linhas = a.readlines()
-  for linha in linhas:
-    i = linha.split(";")
-    encontrei = False
-    posicao = 0
-    while encontrei == False and posicao<len(listaPedidos):
-      if listaPedidos[posicao]['numeroMesa'] == i[3]:
-        encontrei = True
-        listaPedidos[posicao]['itens'].append({'item': i[0], 'quantidade': i[1], 'valor': i[2]})
-      else:
-        posisao += 1
-    if encontrei == False:
-      listaPedidos.append({'numeroMesa': i[3], 'itens': [{'item': i[0], 'quantidade': i[1], 'valor': i[2]}], 'garçom': i[4]})
-  for pedido in listaPedidos:
-    print(f"\n\n  mesa: {pedido['numeroMesa']}    garçom: {pedido['garçom']}"\n)
+  for pedido in historico:
+    print(f"\n   mesa: {pedido['numeroMesa']}     garçom: {pedido['garçom']}\n")
     for x in pedido['itens']:
-      print(f"{x['item']} - {x['quantidade']} - {x['valor']}")
-  a.close()
-  return print("\nFim do histórico.")
+      print(f" {x['item']} - {x['quantidade']} x {x['valor']} = R${x['quantidade']*x['valor']}")
+    print("\n")
 
 listaContas = []
 contasEncerradas = []

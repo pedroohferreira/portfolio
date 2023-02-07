@@ -3,3 +3,6 @@ porção de batata;3;30.0;10;pedro
 coca-cola;3;12.0;10;pedro
 porção de carne de sol;2;65.0;12;joao
 stella 600ml;4;14.0;12;joao
+
+1;porção de batata;3;30.0;pedr
+1;cerveja stella 600ml;6;14.0;pedr
