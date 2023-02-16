@@ -122,6 +122,14 @@ def VerHistorico(historico):
       print(f" {x['item']} - {x['quantidade']} x {x['valor']} = R${x['quantidade']*x['valor']}")
     print("\n")
 
+def DadosVendas():
+  lista = []
+  dados = []
+  ler = open('dados_restaurante.txt', 'r', encoding = "utf-8")
+  linhas = ler.readlines()
+  
+  
+
 listaContas = []
 contasEncerradas = []
 historico = []
@@ -151,6 +159,9 @@ while True:
 
   elif opc == '6':
     VerHistorico(historico)
+
+  elif opc == '7':
+    DadosVendas()
 
   elif opc == 'n' or opc == 'N':
     if str(input("\nDeseja mesmo encerrar o expediente?\npressione 's' para confirmar ou qualquer tecla para voltar ao menu: ")) == 's':
