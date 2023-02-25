@@ -75,7 +75,7 @@ def FecharConta(listaContas, historico):
           if total > 0:
             historico.append(listaContas[posicao])
             for select in listaContas[posicao]['itens']:
-              a.write(f"\n{listaContas[posicao]['numeroMesa']};{select['item']};{select['quantidade']};{select['valor']};{listaContas[posicao]['garçom']}")
+              a.write(f"\n{listaContas[posicao]['numeroMesa']};{select['item']};{select['quantidade']};{select['valor']};{listaContas[posicao]['garçom']};")
             garcom = listaContas[posicao]['garçom']
             del listaContas[posicao]
             print("\nConta fechada!")
@@ -127,8 +127,19 @@ def DadosVendas():
   dados = []
   ler = open('dados_restaurante.txt', 'r', encoding = "utf-8")
   linhas = ler.readlines()
+  for linha in linhas:
+    dados.append(linha.split(';'))
+  del dados[0] # Removendo '\n' da lista de dados
   
-  
+  for pedido in dados:
+    pedido[2] = float(pedido[2])
+    pedido[3] = float(pedido[3])
+    del pedido[-1]
+  for pedido in dados:
+    print(f"\n   mesa: {pedido[0]}     garçom: {pedido[4]}")
+    print(f" {pedido[1]} - {pedido[2]} x {pedido[3]} = R${pedido[2]*pedido[3]}")
+
+
 
 listaContas = []
 contasEncerradas = []
@@ -138,7 +149,7 @@ print("----------  BEM VINDO  ----------")
 while True:
 
   print("\nO que deseja fazer?")
-  print("1 - abrir conta\n2 - adicionar itens\n3 - fechar conta\n4 - calcular gorjeta\n5 - calcular faturamento\n6 - ver histórico de vendas\n'N' - para encerrar o expediente")
+  print("1 - abrir conta\n2 - adicionar itens\n3 - fechar conta\n4 - calcular gorjeta\n5 - calcular faturamento\n6 - ver histórico de hoje\n7 - Ver dados de vendas\n'N' - para encerrar o expediente")
   opc = str(input("Qual sua opção: "))
 
   if opc == '1':

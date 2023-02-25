@@ -1,5 +1,5 @@
 
-10;porção de carne de sol;2;70.0;pedro
-10;cerveja stella 600ml;4;14.0;pedro
-8;porção de batata;2;35.0;vitor
-8;stella 600ml;4;13.0;vitor
+10;porção de carne de sol;2;70.0;pedro;
+10;cerveja stella 600ml;4;14.0;pedro;
+8;porção de batata;2;35.0;vitor;
+8;stella 600ml;4;13.0;vitor;
